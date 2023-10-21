@@ -37,7 +37,6 @@ const Popup = (props) => {
       console.log(error);
     })
 
-    console.log(isAcad)
   }
 
 
@@ -45,22 +44,34 @@ const Popup = (props) => {
   return (
     <>
     {show &&
-    <>
-    <Box component="form" onSubmit={handleSubmit} className="rounded-xl h-[30rem] w-[28rem] bg-slate-100 z-10 fixed left-2 top-16 p-5 border-2  border-gray-700">
+    <div className='rounded-xl h-[30rem] w-[28rem] bg-slate-100 z-10 fixed left-2 top-16 p-5 border-2  border-gray-700 overflow-hidden'>
+    <Box component="form" onSubmit={handleSubmit} className="">
         <CloseIcon className='absolute right-2 top-2 cursor-pointer' onClick={() => setShow(false)}/>
         <h1 className='mb-4'>Popup</h1>
         <TextField className='w-full rounded-xl' label="Search" variant="filled" onChange={(e) =>{setValue(e.target.value)}}/>
     </Box>
-    {/* {data && data?.data.length > 0 && data?.data.map(item=>(
-            <Box>
-              <h1>{item?.journal?.name}</h1>
-              <h2>{item?.title}</h2>
-              {item.authors.length > 0 && item?.authors.map(author =>(
-                <h3>{author.name}</h3>
-              ))}
+    <Box className="my-4 h-[20rem] overflow-auto">
+          {(data.hasOwnProperty('data') && data?.data.length > 0) && 
+          <>
+            <h1 className='text-lg mb-3'>Result</h1>
+            {data?.data.map(item=>(
+            <Box className="shadow-xl border p-4 mb-4 rounded-lg">
+              <h1 className='font-semibold mb-2'>{item?.journal?.name}</h1>
+              <h2 className='font-bold mb-2'>{item?.title}</h2>
+              
+              {item?.authors?.length >= 2 &&
+              <>
+                <p>{item?.authors[0].name}</p>
+                <p>{item?.authors[1].name}</p>
+              </> 
+              }
+              {/* <p><span className='mr-2'>Year: </span>{item?.year}</p> */}
             </Box>
-    ))} */}
-    </> 
+            ))}
+          </>
+          }
+        </Box>
+    </div> 
     }
     </>
   )

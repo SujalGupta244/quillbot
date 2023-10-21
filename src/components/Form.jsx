@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 
 import Switch from '@mui/material/Switch';
 import axios from 'axios'
-import { FormControlLabel } from '@mui/material';
+import { Button, FormControlLabel } from '@mui/material';
 
 const Form = () => {
 
@@ -54,16 +54,17 @@ const Form = () => {
 
   return (
     <div className=" flex flex-col items-center mt-10 pb-12 justify-start h-screen">
-        <Box
+      <h1 className='text-2xl mb-4'>QuillBot</h1>
+      <Box
         component="form"
-        
         noValidate
         autoComplete="off"
-        className='w-1/2 '
+        className='w-1/2 flex flex-col'
         onSubmit={handleSubmit}
         >
-        <TextField className='w-full rounded-xl' label="Search" variant="outlined" onChange={(e) =>{setValue(e.target.value)}}/>
-        <FormControlLabel control={<Switch  checked={isAcad} onChange={handleChecked}/>} label="Academic"  />
+          <TextField className='w-full rounded-xl' label="Search" variant="outlined" onChange={(e) =>{setValue(e.target.value)}}/>
+          <FormControlLabel className='mb-4' control={<Switch  checked={isAcad} onChange={handleChecked}/>} label="Academic"  />
+          <Button variant='contained' type="submit" className=' w-1/4 mx-auto'>Submit</Button>
         </Box>
 
         <Box className="max-w-2xl mt-4">
@@ -74,15 +75,14 @@ const Form = () => {
             <Box className="shadow-xl border p-4 mb-4 rounded-lg">
               <h1 className='font-semibold mb-2'>{item?.journal?.name}</h1>
               <h2 className='font-bold mb-2'>{item?.title}</h2>
-              {/* {item?.authors?.length > 0 && item?.authors.map(author =>(
-                <h3>{author?.name}</h3>
-                ))} */}
-              {item?.authors?.length > 0 &&
+              
+              {item?.authors?.length > 2 &&
               <>
                 <p>{item.authors[0].name}</p>
                 <p>{item.authors[1].name}</p>
               </> 
               }
+              <p><span className='mr-2'>Year: </span>{item?.year}</p>
             </Box>
             ))}
           </>
